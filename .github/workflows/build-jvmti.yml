@@ -21,7 +21,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: lib
-          path: jvmti/dynamic-tp-jvmti-build/target/release/lib*
+          path: jvmti/dynamic-tp-jvmti-build/target/release/libJniLibrary.so
           if-no-files-found: error
 
   mac:
@@ -42,7 +42,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: lib
-          path: jvmti/dynamic-tp-jvmti-build/target/release/lib*
+          path: jvmti/dynamic-tp-jvmti-build/target/release/libJniLibrary.dylib
           if-no-files-found: error
 
   windows:

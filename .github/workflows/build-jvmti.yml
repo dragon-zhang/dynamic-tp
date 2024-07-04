@@ -31,12 +31,12 @@ jobs:
         with:
           arch: aarch64
           distro: ubuntu20.04
-          run: |
-            apt update && apt install openjdk-8-jdk g++ -y
+          run: apt update && apt install openjdk-8-jdk g++ -y
       - name: Set up Maven
         uses: stCarolas/setup-maven@v5
         with:
           maven-version: 3.8.2
+          maven-arch: aarch64
       - name: Build with Maven
         uses: uraimo/run-on-arch-action@v2
         with:

@@ -43,7 +43,7 @@ public class DtpProperties {
     private boolean enabled = true;
 
     /**
-     * Environment, if not set, will use "spring.profiles.active".
+     * Environment, if not set, will use "APP.ENV".
      */
     private String env;
 
@@ -91,6 +91,11 @@ public class DtpProperties {
      * Etcd config.
      */
     private Etcd etcd;
+
+    /**
+     * ThreadPoolExecutor global configs.
+     */
+    private DtpExecutorProps globalExecutorProps;
 
     /**
      * ThreadPoolExecutor configs.
@@ -161,6 +166,11 @@ public class DtpProperties {
      * Rabbitmq thread pools.
      */
     private List<TpExecutorProps> rabbitmqTp;
+
+    /**
+     * Liteflow thread pools.
+     */
+    private List<TpExecutorProps> liteflowTp;
     
     public static DtpProperties getInstance() {
         return Holder.INSTANCE;

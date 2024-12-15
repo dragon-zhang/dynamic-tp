@@ -23,7 +23,7 @@ import org.apache.coyote.ProtocolHandler;
 import org.apache.tomcat.util.threads.ThreadPoolExecutor;
 import org.dromara.dynamictp.common.properties.DtpProperties;
 import org.dromara.dynamictp.core.aware.RejectHandlerAware;
-import org.dromara.dynamictp.core.support.ExecutorAdapter;
+import org.dromara.dynamictp.core.support.adapter.ExecutorAdapter;
 import org.dromara.dynamictp.starter.adapter.webserver.AbstractWebServerDtpAdapter;
 import org.springframework.boot.web.embedded.tomcat.TomcatWebServer;
 import org.springframework.boot.web.server.WebServer;
@@ -153,7 +153,12 @@ public class TomcatDtpAdapter extends AbstractWebServerDtpAdapter<Executor> {
         public void allowCoreThreadTimeOut(boolean value) {
             getTomcatExecutor().allowCoreThreadTimeOut(value);
         }
-        
+
+        @Override
+        public void preStartAllCoreThreads() {
+            getTomcatExecutor().prestartAllCoreThreads();
+        }
+
         @Override
         public long getKeepAliveTime(TimeUnit unit) {
             return getTomcatExecutor().getKeepAliveTime(unit);

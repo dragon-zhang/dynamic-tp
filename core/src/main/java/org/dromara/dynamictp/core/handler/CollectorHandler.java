@@ -26,7 +26,7 @@ import org.dromara.dynamictp.core.monitor.collector.LogCollector;
 import org.dromara.dynamictp.core.monitor.collector.MetricsCollector;
 import org.dromara.dynamictp.core.monitor.collector.MicroMeterCollector;
 import org.dromara.dynamictp.core.monitor.collector.jmx.JMXCollector;
-import org.springframework.util.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -44,7 +44,7 @@ public final class CollectorHandler {
 
     private CollectorHandler() {
         List<MetricsCollector> loadedCollectors = ExtensionServiceLoader.get(MetricsCollector.class);
-        loadedCollectors.forEach(collector -> COLLECTORS.put(collector.type(), collector));
+        loadedCollectors.forEach(collector -> COLLECTORS.put(collector.type().toLowerCase(), collector));
 
         MetricsCollector microMeterCollector = new MicroMeterCollector();
         LogCollector logCollector = new LogCollector();

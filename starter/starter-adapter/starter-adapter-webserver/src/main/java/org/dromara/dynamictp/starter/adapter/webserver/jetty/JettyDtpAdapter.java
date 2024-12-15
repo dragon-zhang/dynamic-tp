@@ -20,7 +20,7 @@ package org.dromara.dynamictp.starter.adapter.webserver.jetty;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.dynamictp.common.properties.DtpProperties;
 import org.dromara.dynamictp.common.util.ReflectionUtil;
-import org.dromara.dynamictp.core.support.ExecutorAdapter;
+import org.dromara.dynamictp.core.support.adapter.ExecutorAdapter;
 import org.dromara.dynamictp.core.support.ExecutorWrapper;
 import org.dromara.dynamictp.starter.adapter.webserver.AbstractWebServerDtpAdapter;
 import org.eclipse.jetty.io.ManagedSelector;
@@ -95,11 +95,7 @@ public class JettyDtpAdapter extends AbstractWebServerDtpAdapter<ThreadPool.Size
                 }
                 ExecutionStrategy.Producer producer = (ExecutionStrategy.Producer) ReflectionUtil.getFieldValue(PRODUCER_FIELD, eatWhatYouKill);
                 SelectorProducerProxy selectorProducerProxy = new SelectorProducerProxy(producer, threadPool);
-                try {
-                    ReflectionUtil.setFieldValue(PRODUCER_FIELD, eatWhatYouKill, selectorProducerProxy);
-                } catch (IllegalAccessException e) {
-                    log.error("DynamicTp enhance jetty origin executor failed.", e);
-                }
+                ReflectionUtil.setFieldValue(PRODUCER_FIELD, eatWhatYouKill, selectorProducerProxy);
             }
         }
     }

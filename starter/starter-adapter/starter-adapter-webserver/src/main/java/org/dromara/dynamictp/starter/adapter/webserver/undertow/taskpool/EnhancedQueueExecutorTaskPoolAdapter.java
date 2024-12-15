@@ -17,7 +17,7 @@
 
 package org.dromara.dynamictp.starter.adapter.webserver.undertow.taskpool;
 
-import org.dromara.dynamictp.core.support.ExecutorAdapter;
+import org.dromara.dynamictp.core.support.adapter.ExecutorAdapter;
 import org.dromara.dynamictp.starter.adapter.webserver.undertow.UndertowTaskPoolEnum;
 import org.jboss.threads.EnhancedQueueExecutor;
 
@@ -130,6 +130,11 @@ public class EnhancedQueueExecutorTaskPoolAdapter implements TaskPoolAdapter {
         @Override
         public void allowCoreThreadTimeOut(boolean value) {
             this.executor.allowCoreThreadTimeOut(value);
+        }
+
+        @Override
+        public void preStartAllCoreThreads() {
+            this.executor.prestartAllCoreThreads();
         }
 
         @Override

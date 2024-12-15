@@ -20,6 +20,7 @@ package org.dromara.dynamictp.common.entity;
 import lombok.Data;
 import org.dromara.dynamictp.common.constant.DynamicTpConst;
 import org.dromara.dynamictp.common.em.NotifyItemEnum;
+import org.dromara.dynamictp.common.em.RejectedTypeEnum;
 
 import java.util.List;
 import java.util.Set;
@@ -45,6 +46,11 @@ public class TpExecutorProps {
     private String threadPoolAliasName;
 
     /**
+     * Thread name prefix.
+     */
+    private String threadNamePrefix = "dtp";
+
+    /**
      * CoreSize of ThreadPool.
      */
     private int corePoolSize = 1;
@@ -65,6 +71,31 @@ public class TpExecutorProps {
      * Timeout unit.
      */
     private TimeUnit unit = TimeUnit.SECONDS;
+
+    /**
+     * BlockingQueue capacity.
+     */
+    private int queueCapacity = 1024;
+
+    /**
+     * Max free memory for MemorySafeLBQ, unit M
+     */
+    private int maxFreeMemory = 16;
+
+    /**
+     * RejectedExecutionHandler type, see {@link RejectedTypeEnum}
+     */
+    private String rejectedHandlerType = RejectedTypeEnum.ABORT_POLICY.getName();
+
+    /**
+     * If enhance reject.
+     */
+    private boolean rejectEnhanced = true;
+
+    /**
+     * If allow core thread timeout.
+     */
+    private boolean allowCoreThreadTimeOut = false;
 
     /**
      * Notify items, see {@link NotifyItemEnum}
@@ -97,6 +128,19 @@ public class TpExecutorProps {
     private long queueTimeout = 0;
 
     /**
+     * Whether to wait for scheduled tasks to complete on shutdown,
+     * not interrupting running tasks and executing all tasks in the queue.
+     */
+    private boolean waitForTasksToCompleteOnShutdown = true;
+
+    /**
+     * The maximum number of seconds that this executor is supposed to block
+     * on shutdown in order to wait for remaining tasks to complete their execution
+     * before the rest of the container continues to shut down.
+     */
+    private int awaitTerminationSeconds = 3;
+
+    /**
      * Task wrapper names.
      */
     private Set<String> taskWrapperNames;
@@ -105,4 +149,16 @@ public class TpExecutorProps {
      * Aware names.
      */
     private List<String> awareNames;
+
+    /**
+     * check core param is inValid
+     *
+     * @return boolean return true means params is inValid
+     */
+    public boolean coreParamIsInValid() {
+        return this.getCorePoolSize() < 0
+                || this.getMaximumPoolSize() <= 0
+                || this.getMaximumPoolSize() < this.getCorePoolSize()
+                || this.getKeepAliveTime() < 0;
+    }
 }

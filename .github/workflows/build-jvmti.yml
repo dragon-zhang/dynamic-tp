@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - name: Set up JDK 8
+      - name: Set up JDK 8 and Maven
         uses: uraimo/run-on-arch-action@v2
         with:
           arch: aarch64
@@ -34,7 +34,7 @@ jobs:
           run: |
             apt update
             apt install openjdk-8-jdk g++ -y
-            apt install maven -y
+            apt-get install -y maven
       - name: Build with Maven
         uses: uraimo/run-on-arch-action@v2
         with:
